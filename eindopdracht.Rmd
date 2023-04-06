@@ -1,0 +1,17 @@
+---
+title: "Eindopdracht"
+author: "Willemijn Meijer en Nonne Hodes"
+date: "7-4-2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r pressure, echo=FALSE}
+
+
+
+```
+
