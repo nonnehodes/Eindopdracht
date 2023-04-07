@@ -5,7 +5,10 @@ date: "7-4-2023"
 output: html_document
 ---
 
-__introductie__
+# _Opdracht 1: Het schrijven van een korte introductie over het onderzoek_
+
+
+## __introductie__
 __Achtergrondinformatie__ Er zijn veel verschillende hersenziekten die ontstaan door de verstoorde functie van hersencellen. Voor onderzoek op moleculair niveau wil je het liefst gezonde hersencellen vergelijken met hersencellen van een zieke patient. Om een specifiek celltype te kunnen ontwikkelen voor onderzoek kunnen fibroblasten uit de huid worden omgezet tot een geinduceerde pluripotente stamcel. Deze stamcellen kunnen weer tot ieder celltype worden gedifferenteerd, in dit geval dus tot hersencellen. Tijdens dit onderzoek wordt er juist een andere methode gebruikt; transdifferentiatie. Bij deze methode wordt er veel tijd bespaard doordat er niet eerst iPSC worden ontwikkeld, maar de fibroblasten direct worden omgezet tot, in dit geval, de te onderzoeken hersencellen. De fibroblasten zijn bij dit onderzoek afkomstig uit één proefpersoon. Waarbij de controlegroep fibroblasten wordt behandeld met het transcriptiefactor BCLXL en de andere groep fibroblasten met de transcriptiefactor ONECUT3. Bij deze methode worden de transcriptiefactoren tot overexpressie gebracht waardoor de cellen van identiteit kunenn veranderen. __Doelstelling:__ Het doel van dit onderzoek is om te achterhalen of er verschil zit in genexpressie tussen fibroblasten die behandeld zijn met BCLXL of cellen die behandeld zijn met ONECUT3. __De onderzoeksvraag__ hierbij luidt: "Wat zijn de verschillen in genexpressie tussen BCLXL behandelde cellen en ONECUT3 behandelde cellen?" __Verwachting__ Er wordt verwacht dat de behandeling met de transcriptiefactor ONECUT3, ervoor kan zorgen dat de fibroblasten van identiteit kunnen veranderen en op die manier om kunnen worden gezet tot hersencellen.
 
 
@@ -14,9 +17,37 @@ __Achtergrondinformatie__ Er zijn veel verschillende hersenziekten die ontstaan 
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r pressure, echo=FALSE}
-
-
+```{r packages, echo=FALSE}
+#Alle benodigde packages worden alvast geladen
+library(tidyverse)
+library(Rsubread)
+library(ggplot2)
+library(dslabs)
+library(dplyr)
+library(pheatmap)
+library(DESeq2)
+library(GO.db)
+library(GOstats)
+library(png)
+library(grid)
+library(gridExtra)
 
 ```
+# _Opdracht 2: Het bekijken van de fastQC hmtl rapporten en hieruit conclusies trekken_
+
+Wanneer er naar de verschillende fastQC hmtl rapporten wordt gekeken dan is er te zien dat de kwaliteit over het algemeen goed is. We zijn voor de RNA-sequencing voornmamelijk geinteresseerd in de kwaliteit van per base en de kwaliteit per sequence. De andere resultaten gebruiken we niet bij de analyse voor de RNA-sequencing omdat deze voornamelijk op de DNA-sequentie gericht zijn. 
+Er is te zien dat bij alle fastQC rapporten er een gemiddelde Phred-score is van ongeveer 35. De Phred-score geeft de maat aan voor de kwaliteit van de identificatie van de nucleotidenbasen bij DNA/RNA-sequencing. Een Phred-score van 35 geeft aan dat de identificatie redelijk nauwkeurig is. (99,9% nauwkeurigheid)
+Om een duidelijker beeld te scheppe waar de waarnemingen en conclusies over de fastQC bestanden op zijn gebasseerd zijn er twee afbeeldingen weergegeven waarin in de en eafbeelding de forward reads, en in de andere afeelding de reverse reads zijn weergegeven. 
+_Dit is op de volgende manier uitgevoerd_
+```{r Voorbeeld FastQC hmtl rapport, echo=FALSE, fig.height=4, out.width= '100%', fig.cap= "Figuur 1: Een voorbeeld van de kwaliteit per base, verkregen uit de fastqc hmtl rapporten. Met op de y-as de Phred-score weergegeven die oploopt van 0-36. De kwaliteit van deze voorbeeldsequenties is hoog, er is een gemiddelde Phred-score van 35. } 
+#Het importeren van een fastQC rapport om een beeld te scheppen waar de conclusies op zijn gebasseerd.
+#Er wordt een vector gemaakt van de afbeeldingen dmv een readPNG, de functie rasterGrob zorgt ervoor dat de afbeelding zo in een raster wordt geplaatst hoe jij het aangeeft (de gewenste locatie, grootte en orientatie van de afbeelding kan worden opgegeven)
+fastqc_SRR7866699_1 <- rasterGrob(as.raster(readPNG("fastqc_kwaliteit_per_base_SRR7866699_1.png")))
+fastqc_SRR7866699_2 <- rasterGrob(as.raster(readPNG("fastqc_kwaliteit_per_base_SRR7866699_2.png")))
+#nu kunnen deze twee afbeeldingen samen worden gevoegd in een raster dmv de functie grid.arrange
+grid.arrange(fastqc_SRR7866699_1, fastqc_SRR7866699_2, ncol=2, top=textGrob("De kwaliteit per base analyse voor de forward(links) en reverse(rechts) read")
+
+```
+
+
 
