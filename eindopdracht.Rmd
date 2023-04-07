@@ -5,6 +5,11 @@ date: "7-4-2023"
 output: html_document
 ---
 
+__introductie__
+__Achtergrondinformatie__ Er zijn veel verschillende hersenziekten die ontstaan door de verstoorde functie van hersencellen. Voor onderzoek op moleculair niveau wil je het liefst gezonde hersencellen vergelijken met hersencellen van een zieke patient. Om een specifiek celltype te kunnen ontwikkelen voor onderzoek kunnen fibroblasten uit de huid worden omgezet tot een geinduceerde pluripotente stamcel. Deze stamcellen kunnen weer tot ieder celltype worden gedifferenteerd, in dit geval dus tot hersencellen. Tijdens dit onderzoek wordt er juist een andere methode gebruikt; transdifferentiatie. Bij deze methode wordt er veel tijd bespaard doordat er niet eerst iPSC worden ontwikkeld, maar de fibroblasten direct worden omgezet tot, in dit geval, de te onderzoeken hersencellen. De fibroblasten zijn bij dit onderzoek afkomstig uit één proefpersoon. Waarbij de controlegroep fibroblasten wordt behandeld met het transcriptiefactor BCLXL en de andere groep fibroblasten met de transcriptiefactor ONECUT3. Bij deze methode worden de transcriptiefactoren tot overexpressie gebracht waardoor de cellen van identiteit kunenn veranderen. __Doelstelling:__ Het doel van dit onderzoek is om te achterhalen of er verschil zit in genexpressie tussen fibroblasten die behandeld zijn met BCLXL of cellen die behandeld zijn met ONECUT3. __De onderzoeksvraag__ hierbij luidt: "Wat zijn de verschillen in genexpressie tussen BCLXL behandelde cellen en ONECUT3 behandelde cellen?" __Verwachting__ Er wordt verwacht dat de behandeling met de transcriptiefactor ONECUT3, ervoor kan zorgen dat de fibroblasten van identiteit kunnen veranderen en op die manier om kunnen worden gezet tot hersencellen.
+
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
