@@ -48,6 +48,6 @@ fastqc_SRR7866699_2 <- rasterGrob(as.raster(readPNG("fastqc_kwaliteit_per_base_S
 grid.arrange(fastqc_SRR7866699_1, fastqc_SRR7866699_2, ncol=2, top=textGrob("De kwaliteit per base analyse voor de forward(links) en reverse(rechts) read")
 
 ```
-
+Bij de linker afbeelding is er te zien dat de Phred-score (de horizontale blauwe lijn) bij de eerste 3 basen wat lager is, hier is de identificatie van de basen dus iets minder nauwkeurig dan hoe dit is voor de basen 4-40. De errorbars geven in deze afbeelding aan dat er wel wat variatie zit in de kwaliteitsscore. Deze variatie is bij de eerste base en de laatste 6 basen het grootst. Bij de laatste base komt de variatie zelfs in het rode gedeelte wat aangeeft dat deze kwaliteitscore erg gevarieerd is. Maar de gemiddelde Phred-score blijft bij de gehele sequentie binnen het groen gebied, wat dus aangeeft dat de kwaliteit goed is voor verdere analyse. 
 
 
