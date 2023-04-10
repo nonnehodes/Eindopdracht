@@ -73,4 +73,5 @@ counts_directory <- "/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts.rds"
 read_counts <- featureCounts(files= input_bam_files, annot.inbuilt = "hg38", useMetaFeatures= TRUE, strandSpecific = 1, isPairedEnd= TRUE, countReadPairs= TRUE, nthreads= 10)
 ```
 __Opdracht 4: Er wordt een DEseq2 object gemaakt aan de hand van de count table met de informatie uit de csv bestanden__
+# we gebruiken de al gegenereerde count table
 
