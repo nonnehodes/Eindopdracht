@@ -83,7 +83,7 @@ count_tabel <- readRDS("/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts_OC3.
 #Voordat we het DESeq object kunnen maken hebben we de telmatrix nodig uit de al gegenereerde count table
 telmatrix <- count_tabel$counts
 
-#
+#We gebruiken de bekende sample informatie die al op de server aanwezig was; onecut_sampledata_OC3.csv
 sample_data <- read_csv("/home/daur2/rnaseq/rnaseq_onecut/onecut_sampledata_OC3.csv")
 
 #we maken van deze sample data nu een dataframe
@@ -94,9 +94,22 @@ rownames(sample_data_frame) <- paste0(sample_data_frame$Run, ".bam")
 
 #Voordat we een DESeq kunnen uitvoeren moet er gekeken worden of de rijnamen van de sampledata overeenkomen met de kolomnamen van de telmatrix. 
 colnames(telmatrix) == rownames(sample_data_frame)
+#hieruit komt TRUE, wat dus aangeeft dat de colnames en de rownames inderdaad overeenkomen, dus de data verder gebruikt kan worden voor het maken van het DESeq-object
 
 #We maken een nieuwe kolom aan in ons dataframe die aangeeft welke behandeling de cellen hebben gehad
 #code from: https://sparkbyexamples.com/r-programming/replace-string-with-another-string-in-r/#:~:text=Use%20str_replace_all()%20method%20of,be%20replaced%20on%20work_address%20column.
 
 replace_string <- c("Skin derived fibroblast overexpressing Bclxl" = "BCLXL", "2 days after induction of OC3 in skin derived fibroblasts" = "ONECUT3")
 sample_data_frame_2 <- sample_data_frame %>% mutate(Behandeling= str_replace_all(Cell_type, replace_string))
+
+#We maken nu van de nieuw gemaakte kolom een factor, omdat dit nodig is voor het maken van een DESeq object. De levels worden zo ingesteld dat de behandeling kan worden vergeleken met de controle, nu kan er dus worden gekeken in hoeverre de genexpressie is veranderd ten iopzichte van de controlesituatie. Hiervoor wordt dus als eerste level voor de controle behandeling, BCLXL gekozen.
+sample_data_frame_2$Behandeling <- sample_data_frame_2$Behandeling %>% factor(levels= c("BCLXL", "ONECUT3")
+
+#Er kan nu een DeSeq-object worden gemaakt van het dataframe, hiervoor hebben we het pakket library(DESeq2) al eerder geladen. Er wordt hierbij gebruik gemaakt van de functie DESeqDataSetFromMatrix omdat er gebruik wordt gemaakt van onze teltabel als matrix, waar de fragmenttellingen voor elk gen per monster in staan
+DESeq_onecut <- DESeqDataSetFromMatrix(countData= telmatrix, colData= sample_data_frame_2, design= ~ Behandeling)
+
+```
+
+
+
+
