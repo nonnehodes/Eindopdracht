@@ -78,15 +78,15 @@ __Opdracht 4: Er wordt een DEseq2 object gemaakt aan de hand van de count table 
 
 #Allereerst zorgen we dat we de al gegenereerde count table in een vector plaatsen
 ```{r count tabel}
-count_tabel <- "/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts_OC3.rds"
+count_tabel <- readRDS("/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts_OC3.rds") 
 
 #Voordat we het DESeq object kunnen maken hebben we de telmatrix nodig uit de al gegenereerde count table
-
 telmatrix <- count_tabel$counts
 
 #
 sample_data <- read_csv("/home/daur2/rnaseq/rnaseq_onecut/onecut_sampledata_OC3.csv")
-#we makne van deze sample data nu een dataframe
+
+#we maken van deze sample data nu een dataframe
 sample_data_frame <- as.data.frame(sample_data)
 
 
