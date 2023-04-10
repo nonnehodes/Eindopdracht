@@ -82,7 +82,7 @@ count_tabel <- "/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts_OC3.rds"
 
 #Voordat we het DESeq object kunnen maken hebben we de telmatrix nodig uit de al gegenereerde count table
 
-telmatrix <- count_table$counts
+telmatrix <- count_tabel$counts
 
 #
 sample_data <- read_csv("/home/daur2/rnaseq/rnaseq_onecut/onecut_sampledata_OC3.csv")
