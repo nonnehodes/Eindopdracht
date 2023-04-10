@@ -96,10 +96,6 @@ rownames(sample_data_frame) <- paste0(sample_data_frame$Run, ".bam")
 colnames(telmatrix) == rownames(sample_data_frame)
 
 #We maken een nieuwe kolom aan in ons dataframe die aangeeft welke behandeling de cellen hebben gehad
-sample_data_frame <- sample_data_frame %>% mutate(behandeling= str_replace(Cell_type, "", "BCLXL"), str_replace(Cell_type, "", "ONECUT3"))
-
-
-
-mutate(behandeling= str_replace(c(Cell_type, "" = "BCLXL"), c(Cell_type, "" = "ONECUT3"))
-mutate(behandeling= str_replace(Cell_type, c("" = "BCLXL"), c("" = "ONECUT3"))
-
+#code from: https://sparkbyexamples.com/r-programming/replace-string-with-another-string-in-r/#:~:text=Use%20str_replace_all()%20method%20of,be%20replaced%20on%20work_address%20column.
+repace_string = c("Skin derived fibroblast overexpressing Bclxl" = "BCLXL", "2 days after induction of OC3 in skin derived fibroblasts" = "ONECUT3")
+sample_data_frame_2 <- sample_data_frame %>% mutate(behandeling= str_replace_all(Cell_type,repace_string))
