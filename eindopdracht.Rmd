@@ -89,7 +89,11 @@ sample_data <- read_csv("/home/daur2/rnaseq/rnaseq_onecut/onecut_sampledata_OC3.
 #we maken van deze sample data nu een dataframe
 sample_data_frame <- as.data.frame(sample_data)
 
+#we maken ons dataframe overzichterlijker door als rowname de naam van de bamfiles te gebruiken.
+rownames(sample_data_frame) <- paste0(sample_data_frame$Run, ".bam")
 
+#Voordat we een DESeq kunnen uitvoeren moet er gekeken worden of de rijnamen van de sampledata overeenkomen met de kolomnamen van de telmatrix. 
+colnames(telmatrix) == rownames(sample_data_frame)
 
 
 
