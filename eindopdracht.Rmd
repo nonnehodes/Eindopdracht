@@ -97,7 +97,6 @@ sample_data_frame_2 <- sample_data_frame %>% mutate(Behandeling= str_replace_all
 sample_data_frame_2$Behandeling <- sample_data_frame_2$Behandeling %>% factor(levels = c("BCLXL", "ONECUT3"))
 
 #Er kan nu een DeSeq-object worden gemaakt van het dataframe, hiervoor hebben we het pakket library(DESeq2) al eerder geladen. Er wordt hierbij gebruik gemaakt van de functie DESeqDataSetFromMatrix omdat er gebruik wordt gemaakt van onze teltabel als matrix, waar de fragmenttellingen voor elk gen per monster in staan
-
 DESeq_onecut <- DESeqDataSetFromMatrix(
   countData = telmatrix,
   colData = sample_data_frame_2, 
