@@ -100,4 +100,4 @@ sample_data_frame <- sample_data_frame %>% mutate(behandeling= str_replace(Cell_
 
 
 
-
+mutate(behandeling= str_replace(c(Cell_type, "", "BCLXL"), c(Cell_type, "", "ONECUT3"))
