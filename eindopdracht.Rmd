@@ -98,5 +98,5 @@ colnames(telmatrix) == rownames(sample_data_frame)
 #We maken een nieuwe kolom aan in ons dataframe die aangeeft welke behandeling de cellen hebben gehad
 #code from: https://sparkbyexamples.com/r-programming/replace-string-with-another-string-in-r/#:~:text=Use%20str_replace_all()%20method%20of,be%20replaced%20on%20work_address%20column.
 
-repace_string <- c("Skin derived fibroblast overexpressing Bclxl" = "BCLXL", "2 days after induction of OC3 in skin derived fibroblasts" = "ONECUT3")
-sample_data_frame_2 <- sample_data_frame %>% mutate(Behandeling= str_replace_all(Cell_type, repace_string))
+replace_string <- c("Skin derived fibroblast overexpressing Bclxl" = "BCLXL", "2 days after induction of OC3 in skin derived fibroblasts" = "ONECUT3")
+sample_data_frame_2 <- sample_data_frame %>% mutate(Behandeling= str_replace_all(Cell_type, replace_string))
