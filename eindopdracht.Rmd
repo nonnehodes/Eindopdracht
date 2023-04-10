@@ -7,11 +7,8 @@ output: html_document
 
 # _Opdracht 1: Het schrijven van een korte introductie over het onderzoek_
 
-
 ## __introductie__
 __Achtergrondinformatie__ Er zijn veel verschillende hersenziekten die ontstaan door de verstoorde functie van hersencellen. Voor onderzoek op moleculair niveau wil je het liefst gezonde hersencellen vergelijken met hersencellen van een zieke patient. Om een specifiek celltype te kunnen ontwikkelen voor onderzoek kunnen fibroblasten uit de huid worden omgezet tot een geinduceerde pluripotente stamcel. Deze stamcellen kunnen weer tot ieder celltype worden gedifferenteerd, in dit geval dus tot hersencellen. Tijdens dit onderzoek wordt er juist een andere methode gebruikt; transdifferentiatie. Bij deze methode wordt er veel tijd bespaard doordat er niet eerst iPSC worden ontwikkeld, maar de fibroblasten direct worden omgezet tot, in dit geval, de te onderzoeken hersencellen. De fibroblasten zijn bij dit onderzoek afkomstig uit één proefpersoon. Waarbij de controlegroep fibroblasten wordt behandeld met het transcriptiefactor BCLXL en de andere groep fibroblasten met de transcriptiefactor ONECUT3. Bij deze methode worden de transcriptiefactoren tot overexpressie gebracht waardoor de cellen van identiteit kunenn veranderen. __Doelstelling:__ Het doel van dit onderzoek is om te achterhalen of er verschil zit in genexpressie tussen fibroblasten die behandeld zijn met BCLXL of cellen die behandeld zijn met ONECUT3. __De onderzoeksvraag__ hierbij luidt: "Wat zijn de verschillen in genexpressie tussen BCLXL behandelde cellen en ONECUT3 behandelde cellen?" __Verwachting__ Er wordt verwacht dat de behandeling met de transcriptiefactor ONECUT3, ervoor kan zorgen dat de fibroblasten van identiteit kunnen veranderen en op die manier om kunnen worden gezet tot hersencellen.
-
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -31,14 +28,15 @@ library(GOstats)
 library(png)
 library(grid)
 library(gridExtra)
-
 ```
-# _Opdracht 2: Het bekijken van de fastQC hmtl rapporten en hieruit conclusies trekken_
 
+# _Opdracht 2: Het bekijken van de fastQC hmtl rapporten en hieruit conclusies trekken_
 Wanneer er naar de verschillende fastQC hmtl rapporten wordt gekeken dan is er te zien dat de kwaliteit over het algemeen goed is. We zijn voor de RNA-sequencing voornmamelijk geinteresseerd in de kwaliteit van per base en de kwaliteit per sequence. De andere resultaten gebruiken we niet bij de analyse voor de RNA-sequencing omdat deze voornamelijk op de DNA-sequentie gericht zijn. 
 Er is te zien dat bij alle fastQC rapporten er een gemiddelde Phred-score is van ongeveer 35. De Phred-score geeft de maat aan voor de kwaliteit van de identificatie van de nucleotidenbasen bij DNA/RNA-sequencing. Een Phred-score van 35 geeft aan dat de identificatie redelijk nauwkeurig is. (99,9% nauwkeurigheid)
 Om een duidelijker beeld te scheppe waar de waarnemingen en conclusies over de fastQC bestanden op zijn gebasseerd zijn er twee afbeeldingen weergegeven waarin in de en eafbeelding de forward reads, en in de andere afeelding de reverse reads zijn weergegeven. 
+
 _Dit is op de volgende manier uitgevoerd_
+
 ```{r Voorbeeld FastQC hmtl rapport, echo=FALSE, fig.height=4, out.width= '100%', fig.cap= "Figuur 1: Een voorbeeld van de kwaliteit per base, verkregen uit de fastqc hmtl rapporten. Met op de y-as de Phred-score weergegeven die oploopt van 0-36. De kwaliteit van deze voorbeeldsequenties is hoog, er is een gemiddelde Phred-score van 35. } 
 #Het importeren van een fastQC rapport om een beeld te scheppen waar de conclusies op zijn gebasseerd.
 #Er wordt een vector gemaakt van de afbeeldingen dmv een readPNG, de functie rasterGrob zorgt ervoor dat de afbeelding zo in een raster wordt geplaatst hoe jij het aangeeft (de gewenste locatie, grootte en orientatie van de afbeelding kan worden opgegeven)
@@ -46,38 +44,31 @@ fastqc_SRR7866699_1 <- rasterGrob(as.raster(readPNG("fastqc_kwaliteit_per_base_S
 fastqc_SRR7866699_2 <- rasterGrob(as.raster(readPNG("fastqc_kwaliteit_per_base_SRR7866699_2.png")))
 #nu kunnen deze twee afbeeldingen samen worden gevoegd in een raster dmv de functie grid.arrange
 grid.arrange(fastqc_SRR7866699_1, fastqc_SRR7866699_2, ncol=2, top=textGrob("De kwaliteit per base analyse voor de forward(links) en reverse(rechts) read")
-
 ```
-Bij de linker afbeelding is er te zien dat de Phred-score (de horizontale blauwe lijn) bij de eerste 3 basen wat lager is, hier is de identificatie van de basen dus iets minder nauwkeurig dan hoe dit is voor de basen 4-40. De errorbars geven in deze afbeelding aan dat er wel wat variatie zit in de kwaliteitsscore. Deze variatie is bij de eerste base en de laatste 6 basen het grootst. Bij de laatste base komt de variatie zelfs in het rode gedeelte wat aangeeft dat deze kwaliteitscore erg gevarieerd is. Maar de gemiddelde Phred-score blijft bij de gehele sequentie binnen het groen gebied, wat dus aangeeft dat de kwaliteit goed is voor verdere analyse. 
 
+Bij de linker afbeelding is er te zien dat de Phred-score (de horizontale blauwe lijn) bij de eerste 3 basen wat lager is, hier is de identificatie van de basen dus iets minder nauwkeurig dan hoe dit is voor de basen 4-40. De errorbars geven in deze afbeelding aan dat er wel wat variatie zit in de kwaliteitsscore. Deze variatie is bij de eerste base en de laatste 6 basen het grootst. Bij de laatste base komt de variatie zelfs in het rode gedeelte wat aangeeft dat deze kwaliteitscore erg gevarieerd is. Maar de gemiddelde Phred-score blijft bij de gehele sequentie binnen het groen gebied, wat dus aangeeft dat de kwaliteit goed is voor verdere analyse. 
 
 __Opdracht 3: Een code schrijven voor het generen van de count table waarbij gebruik wordt gemaakt van het Rsubread package__
 
 ```{r count table, eval=FALSE}
-
 #Voor het maken van een count table moeten we eerst een object aanmaken wat als input directory wordt gezien --> de input files zijn de bam files en daarna wordt dus verwezen met het path
 
 input_directory <- "/home/daur2/rnaseq/rnaseq_onecut/bam/"
 #onze inpur_directory bevat nu het path naar alle bamfiles die in de map bam staan. We moeten hierin nog een selectie maken van de bamfiles die voor de analyse,   gebruikt moeten worden --> SRR7866699, SRR7866700, SRR7866705, SRR7866706 
-
 input_bam_files <- list.files(path= input_directory, pattern= ".*[9056]\.bam$", full.names= TRUE)
 
-
 #we willen natuurlijk ook een directory creeeren waar de output van de count table in komt, in de map van de counts staan meerdere reads bestanden, maar we willen het bestand waar alle 
-
 counts_directory <- "/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts.rds"
 
-
 #voor het tellen van de reads per gen wordt er gebruik gemaakt van de functie featureCounts. Hierbij wordt er achterhaald hoevaak de reads overeenkomen met het menselijke regerentiegenoom. DE genomische locaties staan in de ingebouwde annotatiebestanden. 
-
 read_counts <- featureCounts(files= input_bam_files, annot.inbuilt = "hg38", useMetaFeatures= TRUE, strandSpecific = 1, isPairedEnd= TRUE, countReadPairs= TRUE, nthreads= 10)
 ```
-__Opdracht 4: Er wordt een DEseq2 object gemaakt aan de hand van de count table met de informatie uit de csv bestanden__
 
+__Opdracht 4: Er wordt een DEseq2 object gemaakt aan de hand van de count table met de informatie uit de csv bestanden__
 #we gebruiken de al gegenereerde count table read_counts_OC3.rds
 
-#Allereerst zorgen we dat we de al gegenereerde count table in een vector plaatsen
 ```{r count tabel}
+#Allereerst zorgen we dat we de al gegenereerde count table in een vector plaatsen
 count_tabel <- readRDS("/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts_OC3.rds") 
 
 #Voordat we het DESeq object kunnen maken hebben we de telmatrix nodig uit de al gegenereerde count table
@@ -112,7 +103,6 @@ DESeq_onecut <- DESeqDataSetFromMatrix(
   colData = sample_data_frame_2, 
   design = ~ Behandeling
 )
-
 ```
 
 
