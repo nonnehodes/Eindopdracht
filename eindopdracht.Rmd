@@ -58,9 +58,9 @@ __Opdracht 3: Een code schrijven voor het generen van de count table waarbij geb
 #Voor het maken van een count table moeten we eerst een object aanmaken wat als input directory wordt gezien --> de input files zijn de bam files en daarna wordt dus verwezen met het path
 
 input_directory <- "/home/daur2/rnaseq/rnaseq_onecut/bam/"
-#onze inpur_directory bevat nu het path naar alle bamfiles die in de map bam staan. We moeten hierin nog een selectie maken van de bamfiles die voor de analyse gebruikt moeten worden --> maken een lijst met deze benodigde bamfiles. 
+#onze inpur_directory bevat nu het path naar alle bamfiles die in de map bam staan. We moeten hierin nog een selectie maken van de bamfiles die voor de analyse,   gebruikt moeten worden --> SRR7866699, SRR7866700, SRR7866705, SRR7866706 
 
-input_bam_files <- list.files(path= input_directory, pattern= ".*\.bam$", full.names= TRUE)
+input_bam_files <- list.files(path= input_directory, pattern= ".*[9056]\.bam$", full.names= TRUE)
 
 
 #we willen natuurlijk ook een directory creeeren waar de output van de count table in komt, in de map van de counts staan meerdere reads bestanden, maar we willen het bestand waar alle 
@@ -74,5 +74,22 @@ read_counts <- featureCounts(files= input_bam_files, annot.inbuilt = "hg38", use
 ```
 __Opdracht 4: Er wordt een DEseq2 object gemaakt aan de hand van de count table met de informatie uit de csv bestanden__
 
-#we gebruiken de al gegenereerde count table
+#we gebruiken de al gegenereerde count table read_counts_OC3.rds
+
+#Allereerst zorgen we dat we de al gegenereerde count table in een vector plaatsen
+```{r count tabel}
+count_tabel <- "/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts_OC3.rds"
+
+#Voordat we het DESeq object kunnen maken hebben we de telmatrix nodig uit de al gegenereerde count table
+
+telmatrix <- count_table$counts
+
+#
+sample_data <- read_csv("/home/daur2/rnaseq/rnaseq_onecut/onecut_sampledata_OC3.csv")
+#we makne van deze sample data nu een dataframe
+sample_data_frame <- as.data.frame(sample_data)
+
+
+
+
 
