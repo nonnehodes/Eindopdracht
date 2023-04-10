@@ -95,5 +95,9 @@ rownames(sample_data_frame) <- paste0(sample_data_frame$Run, ".bam")
 #Voordat we een DESeq kunnen uitvoeren moet er gekeken worden of de rijnamen van de sampledata overeenkomen met de kolomnamen van de telmatrix. 
 colnames(telmatrix) == rownames(sample_data_frame)
 
+#We maken een nieuwe kolom aan in ons dataframe die aangeeft welke behandeling de cellen hebben gehad
+sample_data_frame <- sample_data_frame %>% mutate(behandeling= str_replace(Cell_type, "", "BCLXL"), str_replace(Cell_type, "", "ONECUT3"))
+
+
 
 
