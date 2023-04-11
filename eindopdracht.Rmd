@@ -28,6 +28,7 @@ library(GOstats)
 library(png)
 library(grid)
 library(gridExtra)
+library("org.Hs.eg.db")
 ```
 
 # _Opdracht 2: Het bekijken van de fastQC hmtl rapporten en hieruit conclusies trekken_
@@ -120,13 +121,15 @@ summary_PCA <- summary(PCA_analyse)$importance
 summary_PCA_2 <- summary_PCA %>%  
   t %>% 
   as_tibble() %>% 
-  mutate(PC=colnames(summary_PCA))
+  mutate(PC=colnames(summary_PCA)) %>% mutate(Percentage_variance= summary_PCA["Proportion of Variance",]*100)
 
-summary_PCA_2 %>% ggplot(aes(x = PC, y = `Proportion of Variance`)) +
+
+summary_PCA_2
+summary_PCA_2 %>% ggplot(aes(x = PC, y = Percentage_variance )) +
   geom_col() +
   ggtitle("PC") +
   xlab("PC") +
-  ylab("Proportion of variance")
+  ylab("Percentage van de variatie")
 
 PCA_plot <- cbind(sample_data_frame_2, PCA_analyse$x)
 
@@ -207,6 +210,41 @@ up_and_downregulated
 
 count_values <- assay(DESeq_onecut)[up_and_downregulated,]
 colnames(count_values) <- colData(DESeq_onecut)$Behandeling
+
+pheatmap(count_values, scale = "row", show_rownames = TRUE)
+
+```
+
+
+#opdracht b maar dan met de symbolen ipv de entrezid:
+
+```{r, heatmap}
+upregulated_sorted <- DGE_onecut_resultaten %>% data.frame() %>%
+  filter(log2FoldChange > 1 , padj < 0.01) %>%  rownames() %>% sort()
+
+downregulated_sorted <- DGE_onecut_resultaten %>% data.frame() %>%
+  filter(log2FoldChange < -1 , padj < 0.01) %>%  rownames() %>% sort()
+
+top5_upregulated <- upregulated_sorted[1:5]
+top5_upregulated
+
+top5_downregulated <- downregulated_sorted[1:5]
+top5_downregulated
+
+up_and_downregulated <- append(top5_upregulated, top5_downregulated)
+up_and_downregulated
+
+count_values <- assay(DESeq_onecut)[up_and_downregulated,]
+colnames(count_values) <- colData(DESeq_onecut)$Behandeling
+
+up_and_downregulated_symbol <- mapIds(org.Hs.eg.db,
+                             keys = up_and_downregulated,
+                             column = "SYMBOL",
+                             keytype = "ENTREZID",
+                             multiVals = "first")
+
+up_and_downregulated_symbol
+rownames(count_values) <- paste(up_and_downregulated_symbol)
 
 pheatmap(count_values, scale = "row", show_rownames = TRUE)
 
