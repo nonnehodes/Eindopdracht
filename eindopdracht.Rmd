@@ -249,3 +249,19 @@ rownames(count_values) <- paste(up_and_downregulated_symbol)
 pheatmap(count_values, scale = "row", show_rownames = TRUE)
 
 ```
+
+
+
+
+
+
+
+
+
+
+__Opdracht 8: GO-term enrichment analyse voor zowel de upgereguleerde als de downgereguleerde genen__
+
+
+
+
+
