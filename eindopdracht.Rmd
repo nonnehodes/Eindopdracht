@@ -156,6 +156,10 @@ DGE_onecut_volcanoplot %>% ggplot(aes(x= Log2FoldChange, y= -log10(padj), color=
 xlab("Log2 Fold change) +
 ylab("-log10 adjuste p-waarde") +
 
-scale_colour_manual(values= c(
+scale_colour_manual(values= c("grey", "darkorange"), name= "significantie") + 
+ geom_hline(yintercept = -log10(0.01), linetype = "dashed") +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  geom_vline(xintercept = -1, linetype = "dashed")
+```
 
 
