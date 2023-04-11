@@ -104,6 +104,9 @@ DESeq_onecut <- DESeqDataSetFromMatrix(
 )
 ```
 
+__Opdracht 5: Er wordt een PCA analyse uitgevoerd__
 
+```{r PCA}
+#allereerst wordt de data uit de DESeq object genormaliseerd. Dit wordt de gedaan aan de hand van de 
 
 
