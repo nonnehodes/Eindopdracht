@@ -115,3 +115,41 @@ DESeq_onecut_rlog <- rlog(DESeq_onecut)
 
 
 
+```
+
+
+
+
+
+__Opdracht 6: Er wordt een DGE analyse uitgevoerd op het DESeq-object__
+
+
+```{r DGE analyse}
+#er wordt een DGE analyse uitgevoerd met behulp van de DESeq functie, hierbij wordt gebruik gemaakt van de niet-genormaliseerde data van het DESeq-object. We specificeren de results functie op een p-waarde van 0.01 en een LFC van 1
+
+
+DGE_onecut <- DESeq(DESeq_onecut)
+
+#de resultaten van de DGE analyse zijn vervolgens te bekijken met de functie results()
+DGE_onecut_resultaten <- results(DGE_onecut, alpha= 0.01, lfcThreshold= 1)
+summary(DGE_onecut_resultaten)
+
+#er zijn 661 genen upgereguleerd en 644 genen downgereguleerd
+```
+
+```{r Volcano plot}
+
+#nu kunnen we de resultaten van de DGE-analyse visualiseren door deze in een Volcano plot weer te geven. Hierbij is er een adjusted p-value < 0.01 en een LFC > 1. De kleur van de genen die voldoen aan deze voorwaarden worden donkeroranje gekleurd
+#er wordt een dataframe gemaakt van de resultaten uit de DGE analyse waarbij de genen die geen adjuste P waarde bevatten worden verwijderd.
+
+DGE_onecut_volcanoplot <- data.frame(DGE_onecut_resultaten) %>% filter(!is.na(padj))
+
+#we willen vervolgens aangeven welke genen wel of niet significant zin, daarom maken we een kolom die aangeeft als de adjuste pwaarde kleiner is dan 0.01, deze significant is. En wanneer de LFC > 1 dat deze dan significant is. Anders wordt het aangegeven als niet significant.
+
+DGE_onecut_volcanoplot <- DGE_onecut_volcanoplot %>% mutate(significantie= if_else(padj < 0.01 & abs(log2FoldChange) > 1, "Significant", "Niet Significant"))
+
+
+#Er wordt een Volcano plot gegenereerd door de plot functie geom_point, daarbij wordt er een donker oranje kleur gegeven aan de genen die significant zijn. De 
+
+
+
