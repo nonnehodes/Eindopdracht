@@ -107,6 +107,9 @@ DESeq_onecut <- DESeqDataSetFromMatrix(
 __Opdracht 5: Er wordt een PCA analyse uitgevoerd__
 
 ```{r PCA}
-#allereerst wordt de data uit de DESeq object genormaliseerd. Dit wordt de gedaan aan de hand van de 
+#allereerst wordt de data uit de DESeq object genormaliseerd. Dit wordt de gedaan aan de hand van de rlog functie. Deze functie tranformeert de telgegevens naar de log2-schaal. Dit is nodig voor de normalisatie van mogelijke uitschieters.
+
+DESeq_onecut_rlog <- rlog(DESeq_onecut)
+
 
 
