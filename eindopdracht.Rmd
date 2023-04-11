@@ -162,4 +162,26 @@ scale_colour_manual(values= c("grey", "darkorange"), name= "significantie") +
   geom_vline(xintercept = -1, linetype = "dashed") +
 annotate("text", x=10, y= 200, label= "Upgereguleerde genen= 661")+ 
 annotate("text", x=-4, y=200, label="Downgereguleerde genen=644")
+
+#opdracht b
+upregulated_sorted <- DGE_onecut_resultaten %>% data.frame() %>%
+  filter(log2FoldChange > 1 , padj < 0.01) %>%  rownames() %>% sort()
+
+downregulated_sorted <- DGE_onecut_resultaten %>% data.frame() %>%
+  filter(log2FoldChange < 1 , padj < 0.01) %>%  rownames() %>% sort()
+
+top5_upregulated <- upregulated_sorted[1:5]
+top5_upregulated
+
+top5_downregulated <- downregulated_sorted[1:5]
+top5_downregulated
+
+up_and_downregulated <- append(top5_upregulated, top5_downregulated)
+up_and_downregulated
+
+count_values <- assay(DESeq_onecut)[up_and_downregulated,]
+colnames(count_values) <- colData(DESeq_onecut)$Behandeling
+
+pheatmap(count_values, scale = "row", show_rownames = TRUE)
+
 ```
