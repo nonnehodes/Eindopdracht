@@ -109,10 +109,36 @@ __Opdracht 5: Er wordt een PCA analyse uitgevoerd__
 ```{r PCA}
 #allereerst wordt de data uit de DESeq object genormaliseerd. Dit wordt de gedaan aan de hand van de rlog functie. Deze functie tranformeert de telgegevens naar de log2-schaal. Dit is nodig voor de normalisatie van mogelijke uitschieters. De output van de rlog is een SumarizedExperiment-object
 
-DESeq_onecut_rlog <- rlog(DESeq_onecut)
+DESeq_onecut_normalized <- rlog(DESeq_onecut)
 
 #aan de hand van deze genormaliseerde dataset kan er een PCA analyse worden uitgevoerd.
 
+PCA_analyse <- DESeq_onecut_normalized %>% assay() %>% t() %>% prcomp()
+
+summary_PCA <- summary(PCA_analyse)$importance
+
+summary_PCA_2 <- summary_PCA %>%  
+  t %>% 
+  as_tibble() %>% 
+  mutate(PC=colnames(summary_PCA))
+
+summary_PCA_2 %>% ggplot(aes(x = PC, y = `Proportion of Variance`)) +
+  geom_col() +
+  ggtitle("PC") +
+  xlab("PC") +
+  ylab("Proportion of variance")
+
+PCA_plot <- cbind(sample_data_frame_2, PCA_analyse$x)
+
+PC1 <- round(summary_PCA["Proportion of Variance", "PC1"]*100, digits = 1)
+PC2 <- round(summary_PCA["Proportion of Variance", "PC2"]*100, digits = 1)
+
+ggplot(PCA_plot) + 
+  geom_point(aes(x=PC1, y=PC2, color = Behandeling, shape = Behandeling), size = 5) +
+  ggtitle("PCA for airway study") +
+  xlab(paste0("PC1 (", PC1, "%)")) +
+  ylab(paste0("PC2 (", PC2, "%)")) +
+  theme_bw()
 
 
 ```
