@@ -152,14 +152,14 @@ DGE_onecut_volcanoplot <- DGE_onecut_volcanoplot %>% mutate(significantie= if_el
 #Er wordt een Volcano plot gegenereerd door de plot functie geom_point, daarbij wordt er een donker oranje kleur gegeven aan de genen die significant zijn. De LFC en de p-waarde worden aangegeven met een stippellijn
 
 
-DGE_onecut_volcanoplot %>% ggplot(aes(x= Log2FoldChange, y= -log10(padj), color= significantie)) + geom_point() + 
-xlab("Log2 Fold change) +
+DGE_onecut_volcanoplot %>% ggplot(aes(x= log2FoldChange, y= -log10(padj), color= significantie)) + geom_point() + 
+xlab("Log2 Fold change") +
 ylab("-log10 adjuste p-waarde") +
 
 scale_colour_manual(values= c("grey", "darkorange"), name= "significantie") + 
  geom_hline(yintercept = -log10(0.01), linetype = "dashed") +
   geom_vline(xintercept = 1, linetype = "dashed") +
-  geom_vline(xintercept = -1, linetype = "dashed")
+  geom_vline(xintercept = -1, linetype = "dashed") +
+annotate("text", x=10, y= 200, label= "Upgereguleerde genen= 661")+ 
+annotate("text", x=-4, y=200, label="Downgereguleerde genen=644")
 ```
-
-
