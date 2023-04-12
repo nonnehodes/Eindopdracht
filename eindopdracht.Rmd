@@ -142,13 +142,8 @@ ggplot(PCA_plot) +
   xlab(paste0("PC1 (", PC1, "%)")) +
   ylab(paste0("PC2 (", PC2, "%)")) +
   theme_bw()
-
-
+  
 ```
-
-
-
-
 
 __Opdracht 6: Er wordt een DGE analyse uitgevoerd op het DESeq-object__
 
@@ -224,14 +219,48 @@ pheatmap(count_values, scale = "row", show_rownames = TRUE)
 
 ```
 
+__Opdracht 7: 
+
+```{r conversion function}
+
+Entrez_id_to_other_id <- function(entrezid) {
+  DGE_onecut_resultaten_data <- DGE_onecut_resultaten %>% data.frame()%>% rownames()
+  
+  gensymbol <- mapIds(org.Hs.eg.db,
+                      keys = DGE_onecut_resultaten_data,
+                      column = "SYMBOL",
+                      keytype = "ENTREZID",
+                      multiVals = "first")
+  uniprot_id <- mapIds(org.Hs.eg.db,
+                       keys = DGE_onecut_resultaten_data,
+                       column = "UNIPROT",
+                       keytype = "ENTREZID",
+                       multiVals = "first")
+  ensembl_id <- mapIds(org.Hs.eg.db,
+                       keys = DGE_onecut_resultaten_data,
+                       column = "ENSEMBL",
+                       keytype = "ENTREZID",
+                       multiVals = "first")
+  entrez_id <- mapIds(org.Hs.eg.db,
+                      keys = DGE_onecut_resultaten_data,
+                      column = "ENTREZID",
+                      keytype = "ENTREZID",
+                      multiVals = "first")
+  
+  entrez_to_other_frame<- data.frame(entrez = entrez_id, 
+                                     symbol = gensymbol, 
+                                     ensembl = ensembl_id, 
+                                     uniprot = uniprot_id)
+  
+  return_tibble <- tibble(entrez_to_other_frame[entrezid, ])
+  
+  return(return_tibble)
+  
+}
 
 
-
-
-
-
-
-
+Entrez_id_to_other_id(entrezid = c("3175", "9480", "390874"))
+```
 
 __Opdracht 8: GO-term enrichment analyse voor zowel de upgereguleerde als de downgereguleerde genen__
 
