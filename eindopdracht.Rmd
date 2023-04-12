@@ -309,22 +309,27 @@ GOterm_analyse_down20 <- GOterm_analyse_down_selected[order(GOterm_analyse_down_
 
 #de GOterm analyse van de upgereguleerde genen in een grafiek weergeven
 
+GOterm_analyse_up20$Term <- factor(GOterm_analyse_up20$Term, 
+                                     levels = GOterm_analyse_up20$Term[
+                                       order(GOterm_analyse_up20$Pvalue, decreasing = TRUE)])
+
 GOterm_analyse_up20 %>% ggplot(aes(x = Term, y= -log10(Pvalue))) + 
 geom_point() +
 coord_flip() +
 ylab(expression(-log[10](adjusted~italic(P)~value)))+
-xlab("GO-terms)+
+xlab("GO terms") +
 ggtitle("De 20 meest verrijkte GO-terms van de upgereguleerde genen")
 
-
-
 #de GOterm analyse van de downgereguleerde genen in een grafiek weergeven
+GOterm_analyse_down20$Term <- factor(GOterm_analyse_down20$Term, 
+                                     levels = GOterm_analyse_down20$Term[
+                                       order(GOterm_analyse_down20$Pvalue, decreasing = TRUE)])
 
 GOterm_analyse_down20 %>% ggplot(aes(x = Term, y= -log10(Pvalue))) + 
 geom_point() +
 coord_flip() +
 ylab(expression(-log[10](adjusted~italic(P)~value)))+
-xlab("GO-terms)+
+xlab("GO terms") +
 ggtitle("De 20 meest verrijkte GO-terms van de downgereguleerde genen")
 ```
 
