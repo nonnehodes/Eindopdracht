@@ -290,14 +290,14 @@ GOterm_upgereguleerd <- new("GOHyperGParams",
                    testDirection = "over")
 
 GOterm_analyse_up <- hyperGTest(GOterm_upgereguleerd)
-GOterm_analyse_up
+
 
 #Wanneer er naar de output van de GOterm_analyse_up wordt gekeken dan is er te zien dat er 589 genen zijn upgereguleerd door de behandeling met ONECUT3 --> dit zijn de selected genes waarmee de GOterm enrichment analyse is uitgevoerd.
 
 #om de resultaten van de analyse in te zien wordt er gebruik gemaakt van de functie summary()
 
 GOterm_analyse_up_results <- summary(GOterm_analyse_up)
-GOterm_analyse_up_results
+
 
 
 #GO-term analyse voor de downgereguleerde genen
@@ -310,14 +310,13 @@ GOterm_downgereguleerd <- new("GOHyperGParams",
                    testDirection = "over")
 
 GOterm_analyse_down <- hyperGTest(GOterm_downgereguleerd)
-GOterm_analyse_down
+
 
 #Wanneer er naar de output van de GOterm_analyse_down wordt gekeken dan is er te zien dat er 592 genen zijn downgereguleerd door de behandeling met ONECUT3 --> dit zijn de selected genes waarmee de GOterm enrichment analyse is uitgevoerd.
 
 #om de resultaten van de analyse in te zien wordt er gebruik gemaakt van de functie summary()
 
 GOterm_analyse_down_results <- summary(GOterm_analyse_down)
-GOterm_analyse_down_results
 
 ```
 We willen nu een grafiek maken van de GO-term enrichment analyse van zowel de up als downgereguleerde genen. Om dit te doen worden er eerst alleen geselecteerd op de sets genen die groter zijn dan 5, maar kleiner zijn dan 500. Zo voorkom je dat er hele kleine of hele grote sets worden meegenomen in je analyse. Vervolgens selecteren we op de GO-termen van de genen die de laagste adjusted p-waarde hebben, deze zijn het meeste significant.
