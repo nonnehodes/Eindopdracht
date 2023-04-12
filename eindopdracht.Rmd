@@ -261,7 +261,19 @@ pheatmap(count_values, scale = "row", show_rownames = TRUE)
 
 __Opdracht 8: GO-term enrichment analyse voor zowel de upgereguleerde als de downgereguleerde genen__
 
+Bij de GO-term enrichment wordt er een lijst met de GO-termen van de upgereguleerde genen vergeleken met de lijst van de GO-termen van alle genen uit de dataset. Op deze manier kan je achterhalen of er GO-termen zijn die in overmate aanwezig zijn.
+```{r GO-term enrichment}
 
+#allereerst willen we een lijst creeeren met daarin alle genen uit de dataset
+alle_genen_dataset <- DGE_onecut_resultaten %>% data.frame() %>% rownames()
+
+#We willen natuurlijk zowel de upgereguleerde als de downgereguleerde genen vergelijken, dus we maken twee lijsten; voor de upgereguleerde, en de downgereguleerde genen. 
+
+#voor de upgereguleerde genen filteren we op de adjuste p-waarde die < 0.01 zodat we alleen de significante upgereguleerde genen krijgen. En de LFC moet voor de upgereguleerde genen > 1.
+
+upgereguleerde_genen <- DGE_onecut_resultaten %>% data.frame() %>% filter(log2FoldChange > 1, padj < 0.01) %>% rownames()
+
+#voor de downgereguleerde genen filteren we op de LFC die < -1, en de p-waarde < 0.01 voor de significantie
 
 
 
