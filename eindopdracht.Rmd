@@ -303,9 +303,9 @@ GOterm_analyse_down_selected <- GOterm_analyse_down_results %>% filter(Count > 5
 
 #selecteren van de 20 GO-terms die het meest significant zijn.
 
-GOterm_analyse_up20 <- GOterm_analyse_up_selected[order(GOterm_analyse_up_selected$P
+GOterm_analyse_up20 <- GOterm_analyse_up_selected[order(GOterm_analyse_up_selected$Pvalue)[1:20],]
 
-GOterm_analyse_down20 <- goterm_down_selected[order(goterm_down_selected$Pvalue)[1:20],]
+GOterm_analyse_down20 <- GOterm_analyse_down_selected[order(GOterm_analyse_down_selected$Pvalue)[1:20],]
 
 #de GOterm analyse van de upgereguleerde genen in een grafiek weergeven
 
