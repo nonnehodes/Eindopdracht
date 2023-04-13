@@ -1,14 +1,14 @@
 ---
-title: "Eindopdracht"
+title: "Eindopdracht DAUR2"
 author: "Willemijn Meijer en Nonne Hodes"
-date: "7-4-2023"
+date: '`r Sys.Date()`'
 output: html_document
 ---
 
-_Opdracht 1: Het schrijven van een korte introductie over het onderzoek_
+__Opdracht 1: Het schrijven van een korte introductie over het onderzoek__
 
-# __introductie__
-__Achtergrondinformatie__ Er zijn veel verschillende hersenziekten die ontstaan door de verstoorde functie van hersencellen. Voor onderzoek op moleculair niveau wil je het liefst gezonde hersencellen vergelijken met hersencellen van een zieke patient. Om een specifiek celltype te kunnen ontwikkelen voor onderzoek kunnen fibroblasten uit de huid worden omgezet tot een geinduceerde pluripotente stamcel. Deze stamcellen kunnen weer tot ieder celltype worden gedifferenteerd, in dit geval dus tot hersencellen. Tijdens dit onderzoek wordt er juist een andere methode gebruikt; transdifferentiatie. Bij deze methode wordt er veel tijd bespaard doordat er niet eerst iPSC worden ontwikkeld, maar de fibroblasten direct worden omgezet tot, in dit geval, de te onderzoeken hersencellen. De fibroblasten zijn bij dit onderzoek afkomstig uit één proefpersoon. Waarbij de controlegroep fibroblasten wordt behandeld met het transcriptiefactor BCLXL en de andere groep fibroblasten met de transcriptiefactor ONECUT3. Bij deze methode worden de transcriptiefactoren tot overexpressie gebracht waardoor de cellen van identiteit kunenn veranderen. __Doelstelling:__ Het doel van dit onderzoek is om te achterhalen of er verschil zit in genexpressie tussen fibroblasten die behandeld zijn met BCLXL of cellen die behandeld zijn met ONECUT3. __De onderzoeksvraag__ hierbij luidt: "Wat zijn de verschillen in genexpressie tussen BCLXL behandelde cellen en ONECUT3 behandelde cellen?" __Verwachting__ Er wordt verwacht dat de behandeling met de transcriptiefactor ONECUT3, ervoor kan zorgen dat de fibroblasten van identiteit kunnen veranderen en op die manier om kunnen worden gezet tot hersencellen.
+__introductie__
+__Achtergrondinformatie__ Er zijn veel verschillende hersenziekten die ontstaan door de verstoorde functie van hersencellen. Voor onderzoek op moleculair niveau wil je het liefst gezonde hersencellen vergelijken met hersencellen van een zieke patient. Om een specifiek celltype te kunnen ontwikkelen voor onderzoek kunnen fibroblasten uit de huid worden omgezet tot een geinduceerde pluripotente stamcel. Deze stamcellen kunnen weer tot ieder celltype worden gedifferenteerd, in dit geval dus tot hersencellen. Tijdens dit onderzoek wordt er juist een andere methode gebruikt; transdifferentiatie. Bij deze methode wordt er veel tijd bespaard doordat er niet eerst iPSC worden ontwikkeld, maar de fibroblasten direct worden omgezet tot, in dit geval, de te onderzoeken hersencellen. De fibroblasten zijn bij dit onderzoek afkomstig uit één proefpersoon. Waarbij de controlegroep fibroblasten wordt behandeld met het transcriptiefactor BCLXL en de andere groep fibroblasten met de transcriptiefactor ONECUT3. Bij deze methode worden de transcriptiefactoren tot overexpressie gebracht waardoor de cellen van identiteit kunnen veranderen. __Doelstelling:__ Het doel van dit onderzoek is om te achterhalen of er verschil zit in genexpressie tussen fibroblasten die behandeld zijn met BCLXL of cellen die behandeld zijn met ONECUT3. __De onderzoeksvraag__ hierbij luidt: "Wat zijn de verschillen in genexpressie tussen BCLXL behandelde cellen en ONECUT3 behandelde cellen?" __Verwachting__ Er wordt verwacht dat de behandeling met de transcriptiefactor ONECUT3, ervoor kan zorgen dat de fibroblasten van identiteit kunnen veranderen en op die manier om kunnen worden gezet tot hersencellen.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -31,22 +31,23 @@ library(gridExtra)
 library("org.Hs.eg.db")
 ```
 
- _Opdracht 2: Het bekijken van de fastQC hmtl rapporten en hieruit conclusies trekken_
+ __Opdracht 2: Het bekijken van de fastQC hmtl rapporten en hieruit conclusies trekken__
+
 Wanneer er naar de verschillende fastQC hmtl rapporten wordt gekeken dan is er te zien dat de kwaliteit over het algemeen goed is. We zijn voor de RNA-sequencing voornmamelijk geinteresseerd in de kwaliteit van per base en de kwaliteit per sequence. De andere resultaten gebruiken we niet bij de analyse voor de RNA-sequencing omdat deze voornamelijk op de DNA-sequentie gericht zijn. 
 Er is te zien dat bij alle fastQC rapporten er een gemiddelde Phred-score is van ongeveer 35. De Phred-score geeft de maat aan voor de kwaliteit van de identificatie van de nucleotidenbasen bij DNA/RNA-sequencing. Een Phred-score van 35 geeft aan dat de identificatie redelijk nauwkeurig is. (99,9% nauwkeurigheid)
-Om een duidelijker beeld te scheppe waar de waarnemingen en conclusies over de fastQC bestanden op zijn gebasseerd zijn er twee afbeeldingen weergegeven waarin in de en eafbeelding de forward reads, en in de andere afeelding de reverse reads zijn weergegeven. 
+Om een duidelijker beeld te scheppen waar de waarnemingen en conclusies over de fastQC bestanden op zijn gebasseerd zijn er twee afbeeldingen weergegeven in figuur 1 waarin in de linker afbeelding de forward reads, en in de rechter afeelding de reverse reads zijn weergegeven. 
 
 
-```{r Voorbeeld FastQC hmtl rapport, echo=FALSE, fig.height=4, out.width= '100%', fig.cap= "Figuur 1: Een voorbeeld van de kwaliteit per base, verkregen uit de fastqc hmtl rapporten. Met op de y-as de Phred-score weergegeven die oploopt van 0-36. De kwaliteit van deze voorbeeldsequenties is hoog, er is een gemiddelde Phred-score van 35. } 
+```{r Voorbeeld FastQC hmtl rapport, echo=FALSE, fig.height=4, out.width= '100%', fig.cap= _"Figuur 1: Een voorbeeld van de kwaliteit per base, verkregen uit de fastqc hmtl rapporten. Met op de y-as de Phred-score weergegeven die oploopt van 0-36. De kwaliteit van deze voorbeeldsequenties is hoog, er is een gemiddelde Phred-score van 35."_ } 
 #Het importeren van een fastQC rapport om een beeld te scheppen waar de conclusies op zijn gebasseerd.
 #Er wordt een vector gemaakt van de afbeeldingen dmv een readPNG, de functie rasterGrob zorgt ervoor dat de afbeelding zo in een raster wordt geplaatst hoe jij het aangeeft (de gewenste locatie, grootte en orientatie van de afbeelding kan worden opgegeven)
 fastqc_SRR7866699_1 <- rasterGrob(as.raster(readPNG("fastqc_kwaliteit_per_base_SRR7866699_1.png")))
 fastqc_SRR7866699_2 <- rasterGrob(as.raster(readPNG("fastqc_kwaliteit_per_base_SRR7866699_2.png")))
 #nu kunnen deze twee afbeeldingen samen worden gevoegd in een raster dmv de functie grid.arrange
-grid.arrange(fastqc_SRR7866699_1, fastqc_SRR7866699_2, ncol=2, top=textGrob("De kwaliteit per base analyse voor de forward(links) en reverse(rechts) read")
+grid.arrange(fastqc_SRR7866699_1, fastqc_SRR7866699_2, ncol=2, top=textGrob("De kwaliteit per base analyse voor de forward(links) en reverse(rechts) read"))
 ```
 
-Bij de linker afbeelding is er te zien dat de Phred-score (de horizontale blauwe lijn) bij de eerste 3 basen wat lager is, hier is de identificatie van de basen dus iets minder nauwkeurig dan hoe dit is voor de basen 4-40. De errorbars geven in deze afbeelding aan dat er wel wat variatie zit in de kwaliteitsscore. Deze variatie is bij de eerste base en de laatste 6 basen het grootst. Bij de laatste base komt de variatie zelfs in het rode gedeelte wat aangeeft dat deze kwaliteitscore erg gevarieerd is. Maar de gemiddelde Phred-score blijft bij de gehele sequentie binnen het groen gebied, wat dus aangeeft dat de kwaliteit goed is voor verdere analyse. 
+Bij de linker afbeelding is er te zien dat de Phred-score (de horizontale blauwe lijn) bij de eerste 3 basen wat lager is, hier is de identificatie van de basen dus iets minder nauwkeurig dan hoe dit is voor de basen 4-40. De errorbars geven in deze afbeelding aan dat er wel wat variatie zit in de kwaliteitsscore. Deze variatie is bij de eerste base en de laatste 6 basen het grootst. Bij de laatste base komt de variatie zelfs in het rode gedeelte wat aangeeft dat deze kwaliteitscore erg gevarieerd is. Maar de gemiddelde Phred-score blijft bij de gehele sequentie binnen het groene gebied, wat dus aangeeft dat de kwaliteit goed is voor verdere analyse. 
 
 __Opdracht 3: Een code schrijven voor het generen van de count table waarbij gebruik wordt gemaakt van het Rsubread package__
 
@@ -65,9 +66,10 @@ read_counts <- featureCounts(files= input_bam_files, annot.inbuilt = "hg38", use
 ```
 
 __Opdracht 4: Er wordt een DEseq2 object gemaakt aan de hand van de count table met de informatie uit de csv bestanden__
+
 _Hierbij wordt er gebruik gemaakt van de de al gegenereerde count table read_counts_OC3.rds_
 
-```{r count tabel}
+```{r count tabel, message=FALSE}
 #Allereerst zorgen we dat we de al gegenereerde count table in een vector plaatsen
 count_tabel <- readRDS("/home/daur2/rnaseq/rnaseq_onecut/counts/read_counts_OC3.rds") 
 
@@ -106,12 +108,12 @@ DESeq_onecut <- DESeqDataSetFromMatrix(
 
 __Opdracht 5: Er wordt een PCA analyse uitgevoerd__
 
-```{r DESeq normalisatie}
+```{r DESeq normalisatie, message=FALSE}
 #allereerst wordt de data uit de DESeq object genormaliseerd. Dit wordt de gedaan aan de hand van de rlog functie. Deze functie tranformeert de telgegevens naar de log2-schaal. Dit is nodig voor de normalisatie van mogelijke uitschieters. De output van de rlog is een SumarizedExperiment-object
 
 DESeq_onecut_normalized <- rlog(DESeq_onecut)
 ```
-```{r PCA}
+```{r PCA staafdiagram, message=FALSE, fig.cap="Figuur 2: Weergave van de staafdiagram waarin de PC's op de x-as zijn uitgezet tegen het percentage van de variantie op de y-as. Er is hierin te zien dat de PC1 de meeste variantie heeft ten opzichte van PC2 en PC3, PC4 heeft in dit geval helemaal geen variantie."}
 #aan de hand van deze genormaliseerde dataset kan er een PCA analyse worden uitgevoerd.
 
 PCA_analyse <- DESeq_onecut_normalized %>% assay() %>% t() %>% prcomp()
@@ -124,13 +126,15 @@ summary_PCA_2 <- summary_PCA %>%
   mutate(PC=colnames(summary_PCA)) %>% mutate(Percentage_variance= summary_PCA["Proportion of Variance",]*100)
 
 
-summary_PCA_2
 summary_PCA_2 %>% ggplot(aes(x = PC, y = Percentage_variance )) +
   geom_col() +
-  ggtitle("PC") +
+  ggtitle("Perecentage van de variantie van iedere principal component") +
   xlab("PC") +
-  ylab("Percentage van de variatie")
+  ylab("Percentage van de variantie")
 
+```
+
+```{r PCA plot, message=FALSE, fig.cap="Figuur 3: Weergave van de PCA plot waarbij de PC1 tegen de PC2 is uitgezet. Er is hierbij onderscheid gemaakt op basis van de behandeling, de kleur geeft de behandeling aan." }
 PCA_plot <- cbind(sample_data_frame_2, PCA_analyse$x)
 
 PC1 <- round(summary_PCA["Proportion of Variance", "PC1"]*100, digits = 1)
@@ -138,17 +142,22 @@ PC2 <- round(summary_PCA["Proportion of Variance", "PC2"]*100, digits = 1)
 
 ggplot(PCA_plot) + 
   geom_point(aes(x=PC1, y=PC2, color = Behandeling, shape = Behandeling), size = 5) +
-  ggtitle("PCA for airway study") +
+  ggtitle("PCA voor de behandelde fibroblasten") +
   xlab(paste0("PC1 (", PC1, "%)")) +
   ylab(paste0("PC2 (", PC2, "%)")) +
   theme_bw()
   
 ```
 
+
+In figuur 3 is er te zien dat ongeveer 90% van de variantie vast wordt gelegd door de principal component 1. Daarbij is er te zien dat maar ongeveer 4% van de variantie door de principal component 2 wordt vastgelegd. Er is hierin duidelijk te zien dat er twee groepen worden gevormd, hierin zit er onderscheid tussen de BCLXL behandelde en de ONECUT3 behandelde fibroblasten. De BCLXL behandelde cellen liggen helemaal links in de afbeelding wat aangeeft dat er weinig PC1 variantie zit, daarbij wordt er ook nog onderscheid gemaakt in een lage en hoge PC2 variantie voor deze cellen. Voor de ONECUT3 behandelde fibroblasten is er juist een hoge variantie in de PC1. 
+
+
+
 __Opdracht 6: Er wordt een DGE analyse uitgevoerd op het DESeq-object__
 
 
-```{r DGE analyse}
+```{r DGE analyse, message=FALSE}
 #er wordt een DGE analyse uitgevoerd met behulp van de DESeq functie, hierbij wordt gebruik gemaakt van de niet-genormaliseerde data van het DESeq-object. We specificeren de results functie op een p-waarde van 0.01 en een LFC van 1
 
 
@@ -161,7 +170,7 @@ summary(DGE_onecut_resultaten)
 #er zijn 661 genen upgereguleerd en 644 genen downgereguleerd
 ```
 
-```{r Volcano plot}
+```{r Volcano plot, message=FALSE, fig.cap="Figuur 4: Weergave van de Volcano plot waarin de adjusted p-waarde op de y-as is uitgezet tegen de LFC op de x-as. Hierin wordt er door een Threshold aangegeven welke genen wel of niet significant zijn up/downgereguleerd. De oranje stippen geven de significante genen aan. Verder wordt er nog onderscheid gemaakt in of de genen up of downgereguleerd zijn. De genen die links van de Threshold vallen zijn downgereguleerd, en de genen die rechts van de Threshold vallen zijn upgereguleerd."}
 
 #nu kunnen we de resultaten van de DGE-analyse visualiseren door deze in een Volcano plot weer te geven. Hierbij is er een adjusted p-value < 0.01 en een LFC > 1. De kleur van de genen die voldoen aan deze voorwaarden worden donkeroranje gekleurd
 #er wordt een dataframe gemaakt van de resultaten uit de DGE analyse waarbij de genen die geen adjuste P waarde bevatten worden verwijderd.
@@ -177,6 +186,7 @@ DGE_onecut_volcanoplot <- DGE_onecut_volcanoplot %>% mutate(significantie= if_el
 
 
 DGE_onecut_volcanoplot %>% ggplot(aes(x= log2FoldChange, y= -log10(padj), color= significantie)) + geom_point() + 
+ggtitle("Volcano plot voor de significantie van de up- en downgereguleerde genen")
 xlab("Log2 Fold change") +
 ylab("-log10 adjuste p-waarde") +
 
@@ -186,22 +196,24 @@ scale_colour_manual(values= c("grey", "darkorange"), name= "significantie") +
   geom_vline(xintercept = -1, linetype = "dashed") +
 annotate("text", x=10, y= 200, label= "Upgereguleerde genen= 661")+ 
 annotate("text", x=-4, y=200, label="Downgereguleerde genen=644")
+```
 
-#opdracht b
+```{r heatmap, message=FALSE, fig.cap="FIguur 5: Weergave van de heatmap voor de DGE-analyse. Hierin zijn de behandelingen uitgezet tegen de gensymbolen. De legenda geeft de LFC aan, dus een blauw blokje in de heatmap geeft aan dat het een LFC van -1 of kleiner heeft en dus is downgereguleerd, voor de rode blokjes geldt dus dat deze genen upgereguleerd zijn. Wanneer je kijkt naar het gen EPOP dan zie je dat de genexpressie bij BCLXL nog is downgereguleerd, maar na de behandeling met ONECUT3 vind er een upregulatie plaats van de genexpressie." }
+
 upregulated_sorted <- DGE_onecut_resultaten %>% data.frame() %>%
   filter(log2FoldChange > 1 , padj < 0.01) %>%  rownames() %>% sort()
 
 downregulated_sorted <- DGE_onecut_resultaten %>% data.frame() %>%
   filter(log2FoldChange < -1 , padj < 0.01) %>%  rownames() %>% sort()
 
+
 top5_upregulated <- upregulated_sorted[1:5]
-top5_upregulated
+
 
 top5_downregulated <- downregulated_sorted[1:5]
-top5_downregulated
 
 up_and_downregulated <- append(top5_upregulated, top5_downregulated)
-up_and_downregulated
+
 
 count_values <- assay(DESeq_onecut)[up_and_downregulated,]
 colnames(count_values) <- colData(DESeq_onecut)$Behandeling
@@ -212,16 +224,16 @@ up_and_downregulated_symbol <- mapIds(org.Hs.eg.db,
                              keytype = "ENTREZID",
                              multiVals = "first")
 
-up_and_downregulated_symbol
+
 rownames(count_values) <- paste(up_and_downregulated_symbol)
 
 pheatmap(count_values, scale = "row", show_rownames = TRUE)
 
 ```
 
-__Opdracht 7: 
+__Opdracht 7: Het schrijven van een entrezid converter waarbij de ensembl- en uniprot identifier en het gensymbool als output wordt gegeven.__
 
-```{r conversion function}
+```{r conversion function, message=FALSE}
 
 Entrez_id_to_other_id <- function(entrezid) {
   DGE_onecut_resultaten_data <- DGE_onecut_resultaten %>% data.frame()%>% rownames()
@@ -265,7 +277,7 @@ Entrez_id_to_other_id(entrezid = c("3175", "9480", "390874"))
 __Opdracht 8: GO-term enrichment analyse voor zowel de upgereguleerde als de downgereguleerde genen__
 
 Bij de GO-term enrichment wordt er een lijst met de GO-termen van de upgereguleerde genen vergeleken met de lijst van de GO-termen van alle genen uit de dataset. Op deze manier kan je achterhalen of er GO-termen zijn die in overmate aanwezig zijn.
-```{r GO-term enrichment}
+```{r GO-term enrichment, message=FALSE}
 
 #allereerst willen we een lijst creeeren met daarin alle genen uit de dataset
 alle_genen_dataset <- DGE_onecut_resultaten %>% data.frame() %>% rownames()
@@ -321,19 +333,16 @@ GOterm_analyse_down_results <- summary(GOterm_analyse_down)
 ```
 We willen nu een grafiek maken van de GO-term enrichment analyse van zowel de up als downgereguleerde genen. Om dit te doen worden er eerst alleen geselecteerd op de sets genen die groter zijn dan 5, maar kleiner zijn dan 500. Zo voorkom je dat er hele kleine of hele grote sets worden meegenomen in je analyse. Vervolgens selecteren we op de GO-termen van de genen die de laagste adjusted p-waarde hebben, deze zijn het meeste significant.
 
-```{r Resultaten GO-term enrichment}
+```{r Resultaten GO-term enrichment upgereguleerde genen, message=FALSE, fig.cap="Figuur 6: Weergave van de resultaten van de GO-terms enrichment analyse. Hierin zijn de 20 meest verrijkte GO-terms van de upgereguleerde genen geselecteerd en weergegeven op de y-as. Deze zijn uitegezet tegenover de -log10 van de adjusted p-waarde op de x-as."}
 
 #het filteren van de genen waarbij de sets groter dan 5 en kleiner dan 500 zijn.
 
 GOterm_analyse_up_selected <-  GOterm_analyse_up_results %>% filter(Count > 5) %>% filter(Count < 500)
 
-GOterm_analyse_down_selected <- GOterm_analyse_down_results %>% filter(Count > 5) %>% filter(Count < 500)
-
 #selecteren van de 20 GO-terms die het meest significant zijn.
 
 GOterm_analyse_up20 <- GOterm_analyse_up_selected[order(GOterm_analyse_up_selected$Pvalue)[1:20],]
 
-GOterm_analyse_down20 <- GOterm_analyse_down_selected[order(GOterm_analyse_down_selected$Pvalue)[1:20],]
 
 #de GOterm analyse van de upgereguleerde genen in een grafiek weergeven
 
@@ -346,7 +355,20 @@ geom_point() +
 coord_flip() +
 ylab(expression(-log[10](adjusted~italic(P)~value)))+
 xlab("GO terms") +
-ggtitle("De 20 meest verrijkte GO-terms van de upgereguleerde genen")
+ggtitle("Verrijkte Upgereguleerde GO-terms")
+```
+
+
+```{r Resultaten GO-term enrichment downgereguleerde genen, message=FALSE, fig.cap=" Figuur 7: Weergave van de resultaten van de GO-terms enrichment analysen de downgereguleerde genen. Hierin zijn de 20 meest verrijkte GO-terms van de downgereguleerde genen geselecteerd en weergegeven op de y-as. Deze zijn uitegezet tegenover de -log10 van de adjusted p-waarde op de x-as."}
+
+#het filteren van de genen waarbij de sets groter dan 5 en kleiner dan 500 zijn.
+
+GOterm_analyse_down_selected <- GOterm_analyse_down_results %>% filter(Count > 5) %>% filter(Count < 500)
+
+#selecteren van de 20 GO-terms die het meest significant zijn.
+
+GOterm_analyse_down20 <- GOterm_analyse_down_selected[order(GOterm_analyse_down_selected$Pvalue)[1:20],]
+
 
 #de GOterm analyse van de downgereguleerde genen in een grafiek weergeven
 GOterm_analyse_down20$Term <- factor(GOterm_analyse_down20$Term, 
@@ -358,9 +380,9 @@ geom_point() +
 coord_flip() +
 ylab(expression(-log[10](adjusted~italic(P)~value)))+
 xlab("GO terms") +
-ggtitle("De 20 meest verrijkte GO-terms van de downgereguleerde genen")
+ggtitle("Verrijkte Downgereguleerde GO-terms")
 ```
 
 
-#__Conclusie:__
+#Conclusie:
 
