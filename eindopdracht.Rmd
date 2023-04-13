@@ -386,3 +386,15 @@ ggtitle("Verrijkte Downgereguleerde GO-terms")
 
 #Conclusie:
 
+
+
+cellmigratie --> downgereguleerd 
+cell motility --> downgereguleerd
+
+nervous system development --> upgereguleerd
+animal organ development
+
+cellular response to stimulus
+
+
+
